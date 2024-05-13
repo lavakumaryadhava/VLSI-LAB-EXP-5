@@ -3,7 +3,7 @@ SIMULATION AND IMPLEMENTATION OF FINITE STATE MACHINE
 
 AIM: To simulate and synthesis finite state machine using Xilinx ISE.
 
-**APPARATUS REQUIRED: **
+APPARATUS REQUIRED: 
 
 Xilinx 14.7 
 Spartan6 FPGA
@@ -28,14 +28,78 @@ Logic Diagram :
 
 
 VERILOG CODE:
+```
+module fsm(clk, rst, x, z);
 
-----Type Verilog Code
+input clk, rst, x;
+
+output z;
+
+reg [2:1] present_state, NEXT_STATE;
+
+parameter S0=2'b00, S1=2'b01, S2=2'b10, S3=2'b11;
+
+always@(x,present_state)
+
+case(present_state)
+
+S0: if(x)
+
+NEXT_STATE=S1;
+
+else
+
+NEXT_STATE=S0;
+
+S1: if(x)
+
+NEXT_STATE=S1;
+
+else
+
+NEXT_STATE=S2;
+
+S2: if(x)
+
+NEXT_STATE=S3;
+
+else
+
+NEXT_STATE=S0;
+
+S3: if(x)
+
+NEXT_STATE=S1;
+
+else
+
+NEXT_STATE=S2;
+
+endcase
+
+always@(negedge rst, posedge clk)
+
+if(rst)
+
+present_state<=S0;
+
+else
+
+present_state<=NEXT_STATE;
+
+assign z=(present_state==S3);
+
+endmodule
+```
 
 OUTPUT:
 
------Place a Waveform Generated from Xilinx ISE------------
+![image](https://github.com/lavakumaryadhava/VLSI-LAB-EXP-5/assets/162088994/6cb599de-22f1-4ea0-b6a0-8454bb2a9172)
 
-RESULT:
+
+RESULT:Thus,the simulation and synthesis of finite state machine by using vivado has been successfully excecuted and verified.
+
+
 
 
 
